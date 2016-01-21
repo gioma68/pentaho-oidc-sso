@@ -112,7 +112,7 @@ Sample config for **applicationContext-spring-security.xml**
   <bean class="org.springframework.security.ui.TargetUrlResolverImpl" id="targetUrlResolver">
     <property name="justUseSavedRequestOnGet" value="true"/>
   </bean>
-    <!-- === OAuth autentication == -->
+    <!-- === OAuth/OIDC autentication == -->
   <bean class="com.arena.sso.oidc.OAuthAuthenticationProcessingFilter" id="oauthAuthenticationProcessingFilter">
     <property name="authenticationManager">
       <bean class="org.springframework.security.providers.ProviderManager" id="oauthAuthenticationManager">
