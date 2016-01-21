@@ -96,7 +96,21 @@ Ant script releases **com.arena.sso-1.x.jar** file in the dist directory, togeth
 
 - In case that *targetUrlResolver* is defined as a nested bean under Spring's *authenticationProcessingFilter*, it should be taken out to be in global scope to be referenced from all *AuthenticationProcessingFilters* configured.
 	
-	
+Sample config
+```xml
+:
+  <bean class="org.springframework.security.util.FilterChainProxy" id="filterChainProxy">
+    <property name="filterInvocationDefinitionSource">
+      <value>CONVERT_URL_TO_LOWERCASE_BEFORE_COMPARISON
+			PATTERN_TYPE_APACHE_ANT
+			/webservices/**=securityContextHolderAwareRequestFilterForWS,httpSessionPentahoSessionContextIntegrationFilter,httpSessionContextIntegrationFilter,basicProcessingFilter,anonymousProcessingFilter,exceptionTranslationFilterForWS,filterInvocationInterceptorForWS
+			/api/**=securityContextHolderAwareRequestFilterForWS,httpSessionPentahoSessionContextIntegrationFilter,httpSessionContextIntegrationFilter,basicProcessingFilter,requestParameterProcessingFilter,anonymousProcessingFilter,exceptionTranslationFilterForWS,filterInvocationInterceptorForWS
+			/plugin/**=securityContextHolderAwareRequestFilterForWS,httpSessionPentahoSessionContextIntegrationFilter,httpSessionContextIntegrationFilter,basicProcessingFilter,requestParameterProcessingFilter,anonymousProcessingFilter,exceptionTranslationFilterForWS,filterInvocationInterceptorForWS
+			/**=securityContextHolderAwareRequestFilter,httpSessionPentahoSessionContextIntegrationFilter,httpSessionContextIntegrationFilter,httpSessionReuseDetectionFilter,enhancedHttpSessionReuseDetectionFilter,logoutFilter,closeFilter,authenticationProcessingFilter,oauthAuthenticationProcessingFilter,oauthAuthenticationEntryPoint,basicProcessingFilter,requestParameterProcessingFilter,anonymousProcessingFilter,exceptionTranslationFilter,filterInvocationInterceptor</value>
+    </property>
+  </bean>
+:
+```
 
 **2.** Add and configure **oauth.properties** file to manage configurable values (used by *OAuthConsumerImpl*) related to OAuth/OIDC server you are using (file example is provided in the **resources** folder). The file should be added to **pentaho-solutions/system** directory. 
 
