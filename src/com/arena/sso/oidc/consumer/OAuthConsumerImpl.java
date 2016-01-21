@@ -164,10 +164,7 @@ public class OAuthConsumerImpl implements OAuthConsumer, InitializingBean {
 	
 				if(issuer.equals("mitreoid")) {
 					System.out.println("[AUTH-SSO] 5. Evaluate RESPONSE for MITREid");
-					/*
-					Map<String, String> responseParamsMap = responseContentToParamsMap(content);
-					accessToken = responseParamsMap.get("access_token");
-					*/
+
 					JSONObject json = new JSONObject(content);
 					accessToken = json.getString("access_token");
 					
@@ -177,10 +174,7 @@ public class OAuthConsumerImpl implements OAuthConsumer, InitializingBean {
 	
 				} else if(issuer.equals("wso2is")) {
 					System.out.println("[AUTH-SSO] 5. Evaluate RESPONSE for WSO2IS");
-					/*
-					Map<String, String> responseParamsMap = responseContentToParamsMap(content);
-					accessToken = responseParamsMap.get("access_token");
-					*/
+
 					JSONObject json = new JSONObject(content);
 					accessToken = json.getString("access_token");
 					
