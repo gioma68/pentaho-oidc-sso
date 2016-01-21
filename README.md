@@ -99,7 +99,7 @@ Ant script releases **com.arena.sso.oidc-1.x.jar** file in the dist directory, t
 	
 	
 
-**2.** Add and configure **oauth.properties** file to manage configurable values (used by *OAuthConsumerImpl*) related to Social App (file example is provided in the **resources** folder). The file should be added to **pentaho-solutions/system** directory. 
+**2.** Add and configure **oauth.properties** file to manage configurable values (used by *OAuthConsumerImpl*) related to OAuth/OIDC server you are using (file example is provided in the **resources** folder). The file should be added to **pentaho-solutions/system** directory. 
 
 Also add the following bean into **pentaho-spring-beans.xml** to make the property file data available for Spring IOC.
 
