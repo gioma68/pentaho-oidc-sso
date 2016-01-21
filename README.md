@@ -124,16 +124,7 @@ Also add the following bean into **pentaho-spring-beans.xml** to make the proper
 	<property name="sessionReuseDetectedUrl" value="/Login?login_error=2" />
 	<property name ="ssoFilterProcessesUrls">
 		<list>
-<!-- 
-			<value>/j_spring_openid_security_check</value>
--->
 			<value>/j_spring_oauth_security_check</value>
-<!-- 
-			<value>/j_spring_saml_security_check</value>
-			<value>/saml/sso/admin</value>
-			<value>/saml/sso/user</value>
-			<value>/saml/sso/ba</value> 
--->
 		</list>
 	</property>
 </bean>
