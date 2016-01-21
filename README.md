@@ -172,9 +172,6 @@ Also add the following bean into **pentaho-spring-beans.xml** to make the proper
 
 ***
 
-
-***
-
 ##SSO FrontEnd Configuration
 
 **OIDC Login Processing URL **
