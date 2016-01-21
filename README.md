@@ -27,7 +27,7 @@ In case of compiling the package using Apache Ant, please correct the needed pat
 
 ##Deployment
 
-Ant script releases **com.arena.sso.oidc-1.x.jar** file in the dist directory, together with needed libraries copied. To deploy the extension, all the jar files from **dist** directory should be simply copied into Pentaho lib directory. 
+Ant script releases **com.arena.sso-1.x.jar** file in the dist directory, together with needed libraries copied. To deploy the extension, all the jar files from **dist** directory should be simply copied into Pentaho lib directory. 
 
 
 ***
