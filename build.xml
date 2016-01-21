@@ -1,13 +1,13 @@
-<project basedir="." default="all" name="com.secureops.sso">
+<project basedir="." default="all" name="com.arenacube.sso">
 	<!-- Manifest properties -->
 	<property name="name" value="pentaho_sso_extension" />
-	<property name="title" value="com.secureops.sso" />
+	<property name="title" value="com.arenacube.sso" />
 
 	<!-- The name of application -->
-	<property name="app.name" value="com.secureops.sso" />
+	<property name="app.name" value="com.arenacube.sso" />
 
 	<!-- The version of application -->
-	<property name="version" value="1.0.5" />
+	<property name="version" value="1.0.0-SNAPSHOT" />
 
 	<!-- The directory containing source code -->
 	<property name="src" value="src" />
