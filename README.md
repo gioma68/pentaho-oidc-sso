@@ -7,7 +7,7 @@ SSO extension allows to configure any number of Identity Providers, defining the
 
 The extension is tested with: **Pentaho-Platform 5.4.0 CE**, **MITREid 1.2.0**, **WSO2 IS 5.1.0**. 
 
-The instruction below intends that you have Pentaho platform installed and configured.
+The instruction below intends that you have Pentaho platform installed and configured, one OAuth/OIDC server (MITREid or WSO2 IS).
 
 
 ##Compilation
