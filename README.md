@@ -5,7 +5,7 @@ This project is mainly based on code and documentation, developed by **https://b
 
 SSO extension allows to configure any number of Identity Providers, defining the list of Pentaho Roles for each "users channel" separately. Pentaho's own Authentication functionality can be also kept active if needed.
 
-The extension is tested with: **Pentaho BI Server 5.4.0 CE**, **MITREid 1.2.3** (https://github.com/mitreid-connect/OpenID-Connect-Java-Spring-Server), **WSO2 IS 5.1.0** (wso2.com). 
+The extension is tested with: **Pentaho BI Server 5.4.0 CE**, **MITREid 1.2.3** (https://github.com/mitreid-connect/OpenID-Connect-Java-Spring-Server), **WSO2 IS 5.1.0** (http://wso2.com). 
 
 The instruction below intends that you have Pentaho platform installed and configured, one OAuth/OIDC server (MITREid or WSO2 IS).
 
