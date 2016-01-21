@@ -32,7 +32,7 @@ Ant script releases **com.arena.sso-1.x.jar** file in the dist directory, togeth
 ***
 ##Configuration
 
-**1.** Configure *AuthenticationProcessingFilter*, *AuthenticationProvider*, *Consumer* and *AuthenticationEntryPoint* (this one was not required for OpenId because of embedded support by Spring) beans for OAuth in **applicationContext-spring-security.xml** like the following:
+**1.** Configure *AuthenticationProcessingFilter*, *AuthenticationProvider*, *Consumer* and *AuthenticationEntryPoint* (this one was not required for OpenId because of embedded support by Spring) beans for OAuth/OIDC in **applicationContext-spring-security.xml** like the following:
 ```xml
 <bean id="oauthAuthenticationProcessingFilter" class="com.arena.sso.oidc.OAuthAuthenticationProcessingFilter">
 	<property name="authenticationManager">
@@ -96,7 +96,7 @@ Ant script releases **com.arena.sso-1.x.jar** file in the dist directory, togeth
 
 - In case that *targetUrlResolver* is defined as a nested bean under Spring's *authenticationProcessingFilter*, it should be taken out to be in global scope to be referenced from all *AuthenticationProcessingFilters* configured.
 	
-Sample config
+Sample config for **applicationContext-spring-security.xml**
 ```xml
 :
   <bean class="org.springframework.security.util.FilterChainProxy" id="filterChainProxy">
@@ -109,6 +109,62 @@ Sample config
 			/**=securityContextHolderAwareRequestFilter,httpSessionPentahoSessionContextIntegrationFilter,httpSessionContextIntegrationFilter,httpSessionReuseDetectionFilter,enhancedHttpSessionReuseDetectionFilter,logoutFilter,closeFilter,authenticationProcessingFilter,oauthAuthenticationProcessingFilter,oauthAuthenticationEntryPoint,basicProcessingFilter,requestParameterProcessingFilter,anonymousProcessingFilter,exceptionTranslationFilter,filterInvocationInterceptor</value>
     </property>
   </bean>
+  <bean class="org.springframework.security.ui.TargetUrlResolverImpl" id="targetUrlResolver">
+    <property name="justUseSavedRequestOnGet" value="true"/>
+  </bean>
+    <!-- === OAuth autentication == -->
+  <bean class="com.arena.sso.oidc.OAuthAuthenticationProcessingFilter" id="oauthAuthenticationProcessingFilter">
+    <property name="authenticationManager">
+      <bean class="org.springframework.security.providers.ProviderManager" id="oauthAuthenticationManager">
+        <property name="providers">
+          <list>
+            <ref local="oauthAuthenticationProvider"/>
+          </list>
+        </property>
+      </bean>
+    </property>
+    <property name="consumer" ref="oauthConsumer"/>
+    <property name="defaultTargetUrl" value="/Home"/>
+    <property name="authenticationFailureUrl" value="/Login?sso_login_error=1"/>
+    <property name="targetUrlResolver">
+      <ref local="targetUrlResolver"/>
+    </property>
+  </bean>
+  <bean class="com.arena.sso.oidc.OAuthAuthenticationProvider" id="oauthAuthenticationProvider">
+    <property name="userDetailsService" ref="oauthUserDetailsService"/>
+  </bean>
+  <bean class="com.arena.sso.oidc.consumer.OAuthConsumerImpl" id="oauthConsumer">
+    <constructor-arg index="0" value="${oauth.redirectUrl}"/>
+    <!-- custom property for MITRE-OPENID server -->
+    <property name="mitreoidConsumerKey" value="${oauth.mitreoidConsumerKey}"/>
+    <property name="mitreoidConsumerSecret" value="${oauth.mitreoidConsumerSecret}"/>
+    <property name="mitreoidTokenRequestUri" value="${oauth.mitreoidTokenRequestUri}"/>
+    <property name="mitreoidAccessTokenUri" value="${oauth.mitreoidAccessTokenUri}"/>
+    <property name="mitreoidAuthenticationTokenUri" value="${oauth.mitreoidAuthenticationTokenUri}"/>
+    <property name="mitreOpenIdClaim" value="${oauth.mitreOpenIdClaim}"/>
+    <!-- end MITRE-OPENID server -->
+    <!-- custom property for WSO2 IS-Oauth server -->
+    <property name="wso2isConsumerKey" value="${oauth.wso2isConsumerKey}"/>
+    <property name="wso2isConsumerSecret" value="${oauth.wso2isConsumerSecret}"/>
+    <property name="wso2isTokenRequestUri" value="${oauth.wso2isTokenRequestUri}"/>
+    <property name="wso2isAccessTokenUri" value="${oauth.wso2isAccessTokenUri}"/>
+    <property name="wso2isAuthenticationTokenUri" value="${oauth.wso2isAuthenticationTokenUri}"/>
+    <property name="wso2OpenIdClaim" value="${oauth.wso2OpenIdClaim}"/>
+    <!-- end WSO2 IS-Oauth server -->
+  </bean>
+  <bean class="com.arena.sso.oidc.OAuthAuthenticationEntryPoint" id="oauthAuthenticationEntryPoint">
+    <property name="consumer" ref="oauthConsumer"/>
+  </bean>
+  <bean class="com.arena.sso.EnhancedHttpSessionReuseDetectionFilter" id="enhancedHttpSessionReuseDetectionFilter">
+    <property name="filterProcessesUrl" value="/j_spring_security_check"/>
+    <property name="sessionReuseDetectedUrl" value="/Login?sso_login_error=2"/>
+    <property name="ssoFilterProcessesUrls">
+      <list>
+        <value>/j_spring_oauth_security_check</value>
+      </list>
+    </property>
+  </bean>
+  <!-- === END OAuth/OIDC autentication == <<<<<<<<< -->
 :
 ```
 
