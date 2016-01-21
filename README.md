@@ -1,7 +1,7 @@
 #Pentaho SSO Extension using MITREid or WSO2 IS as IdP
 
 This Pentaho SSO Extension is intended to provide Single Sign-On setup for Pentaho Platform using OAuth/OIDC "Authorization Code" grant flow with OS OAuth/OIDC certified server (this version was tested with MITREid 1.2.0 and WSO2 IS 5.1.0).  
-This project is mainly based on code and documentation, developed by **https://bitbucket.org/secureops/sops-pentaho**, so refer to it if you want more info/features (like SAML/SSO, classic OPEIND) using social IdP provider (google, facebook, linkedin, twitter) - this features was removed by my custom implementation (not necessary for my company requirements). 
+This project is mainly based on code and documentation, developed by **https://bitbucket.org/secureops/sops-pentaho**, so refer to it if you want more info/features (like **SAML/SSO**, classic **Openid**, classic **OAuth**) using social IdP provider (**google, facebook, linkedin, twitter**) - this features was removed by my custom implementation (not necessary for my company requirements). 
 
 SSO extension allows to configure any number of Identity Providers, defining the list of Pentaho Roles for each "users channel" separately. Pentaho's own Authentication functionality can be also kept active if needed.
 
