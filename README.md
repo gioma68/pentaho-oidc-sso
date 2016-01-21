@@ -5,7 +5,7 @@ https://bitbucket.org/secureops/sops-pentaho
 
 SSO extension allows to configure any number of Identity Providers, defining the list of Pentaho Roles for each "users channel" separately. Pentaho's own Authentication functionality can be also kept active if needed.
 
-The extension is tested with the version "Pentaho-Platform 5.4.0 CE". 
+The extension is tested with: **Pentaho-Platform 5.4.0 CE**, **MITREid 1.2.0**, **WSO2 IS 5.1.0**. 
 
 The instruction below intends that you have Pentaho platform installed and configured.
 
