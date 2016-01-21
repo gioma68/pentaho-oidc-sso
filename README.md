@@ -1,7 +1,7 @@
 #Pentaho SSO Extension using MITREid or WSO2 IS as IdP
 
-Thi Pentaho SSO Extension is intended to provide Single Sign-On setup for Pentaho Platform using OAuth/OIDC grant flow with to OS OAuth/OIDC certified server (for MITREid and WSO2 IS 5.1.0).  This project is mainly based on code developed by this project
-https://bitbucket.org/secureops/sops-pentaho
+This Pentaho SSO Extension is intended to provide Single Sign-On setup for Pentaho Platform using OAuth/OIDC grant flow with to OS OAuth/OIDC certified server (this version was tested with MITREid 1.2.0 and WSO2 IS 5.1.0).  This project is mainly based on code developed by this project
+https://bitbucket.org/secureops/sops-pentaho.
 
 SSO extension allows to configure any number of Identity Providers, defining the list of Pentaho Roles for each "users channel" separately. Pentaho's own Authentication functionality can be also kept active if needed.
 
@@ -35,7 +35,7 @@ Ant script releases **com.arena.sso.oidc-1.x.jar** file in the dist directory, t
 
 **1.** Configure *AuthenticationProcessingFilter*, *AuthenticationProvider*, *Consumer* and *AuthenticationEntryPoint* (this one was not required for OpenId because of embedded support by Spring) beans for OAuth in **applicationContext-spring-security.xml** like the following:
 ```xml
-<bean id="oauthAuthenticationProcessingFilter" class="com.secureops.sso.oauth.OAuthAuthenticationProcessingFilter">
+<bean id="oauthAuthenticationProcessingFilter" class="com.arena.sso.oidc.OAuthAuthenticationProcessingFilter">
 	<property name="authenticationManager">
 		<bean id="oauthAuthenticationManager" class="org.springframework.security.providers.ProviderManager">
 			<property name="providers">
