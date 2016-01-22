@@ -15,7 +15,6 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.scribe.builder.ServiceBuilder;
-import org.scribe.builder.api.TwitterApi;
 import org.scribe.model.*;
 import org.scribe.oauth.OAuthService;
 import org.springframework.beans.factory.InitializingBean;
@@ -64,7 +63,6 @@ public class OAuthConsumerImpl implements OAuthConsumer, InitializingBean {
 	
 	@Override
 	public void afterPropertiesSet() throws Exception {
-		this.service = new ServiceBuilder().provider(TwitterApi.SSL.class).apiKey(twitterConsumerKey).apiSecret(twitterConsumerSecret).callback(this.redirectUrl).build();
 	}
 	
 	@Override
