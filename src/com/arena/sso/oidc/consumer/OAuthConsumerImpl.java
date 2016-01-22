@@ -201,8 +201,8 @@ public class OAuthConsumerImpl implements OAuthConsumer, InitializingBean {
 	
 	/**
 	* Send get request. (send access_token and get username)
-	* @param authenticationTokenFullUri     with access token
-	* @return                                  issuer's response.
+	* @param authenticationTokenFullUri with access token
+	* @return issuer's response.
 	* @throws java.io.IOException
 	*/
 	private HttpResponse sendGetRequest(String authenticationTokenFullUri) throws IOException {
@@ -213,12 +213,19 @@ public class OAuthConsumerImpl implements OAuthConsumer, InitializingBean {
 	return httpclient.execute(httpget);
 	}
 	
+	/**
+	* Send get request. (send access_token and get username)
+	* @param authenticationTokenFullUri 
+	* @param access token
+	* @return issuer's response.
+	* @throws java.io.IOException
+	*/	
 	private HttpResponse sendGetRequest(String authenticationTokenFullUri, String accessToken) throws IOException {
 	HttpClient httpclient = HttpClients.createDefault();
 	HttpGet httpget = new HttpGet(authenticationTokenFullUri);
-		// for GET calls that require Auth Bearer in HTTP HEADERs e.g. WSO2 IdP add Auth header
-		httpget.setHeader("Authorization","Bearer "+accessToken);
-		System.out.println("[AUTH-SSO] 7.1. SEND modified HTTPGET for :"+authenticationTokenFullUri+ " with Auth Bearer:"+accessToken);
+	// for GET calls that require Auth Bearer in HTTP HEADERs e.g. WSO2 IdP, add Auth header
+	httpget.setHeader("Authorization","Bearer "+accessToken);
+	System.out.println("[AUTH-SSO] 7.1. SEND modified HTTPGET for :"+authenticationTokenFullUri+ " with Auth Bearer:"+accessToken);
 	//Execute and return the response.
 	return httpclient.execute(httpget);
 	}
@@ -236,10 +243,10 @@ public class OAuthConsumerImpl implements OAuthConsumer, InitializingBean {
 	params.add(new BasicNameValuePair("grant_type", grantType));
 	params.add(new BasicNameValuePair("code", code));
 	params.add(new BasicNameValuePair("redirect_uri", redirectUrl));
-		params.add(new BasicNameValuePair("client_id", consumerKey));
+	params.add(new BasicNameValuePair("client_id", consumerKey));
 	params.add(new BasicNameValuePair("client_secret", consumerSecret));
 	httppost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
-		System.out.println("[AUTH-SSO] 3.1. SEND standard HTTPOST for grant :"+grantType);
+	System.out.println("[AUTH-SSO] 3.1. SEND standard HTTPOST for grant :"+grantType);
 	//Execute and return the response.
 	return httpclient.execute(httppost);
 	}
@@ -261,7 +268,7 @@ public class OAuthConsumerImpl implements OAuthConsumer, InitializingBean {
 	return responseParamsMap;
 	}
 	
-	/* added MITREid config param */
+	/* MITREid config param */
 	public String getMitreoidConsumerKey() {
 	return mitreoidConsumerKey;
 	}
@@ -309,7 +316,7 @@ public class OAuthConsumerImpl implements OAuthConsumer, InitializingBean {
 		this.mitreOpenIdClaim = mitreOpenIdClaim;
 	}
 	
-	/* added WSO2 IS config param */
+	/* WSO2 IS config param */
 	public String getWso2isConsumerKey() {
 	return wso2isConsumerKey;
 	}
