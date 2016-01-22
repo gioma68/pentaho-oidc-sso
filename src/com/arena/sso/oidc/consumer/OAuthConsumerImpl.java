@@ -27,7 +27,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.xml.bind.DatatypeConverter;
-
+/* console direct output for debugging */
 import static java.lang.System.out;
 
 public class OAuthConsumerImpl implements OAuthConsumer, InitializingBean {
