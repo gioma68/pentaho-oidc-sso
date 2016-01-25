@@ -182,7 +182,7 @@ Also add the following bean into **pentaho-spring-beans.xml** to make the proper
 ```
 
 - The property *redirectUrl* in **oauth.properties** file should correspond to the one configures for Social Apps as redirect (callback) URL. It should also correspond to the URL processed by *oauthAuthenticationProcessingFilter*. Its structure is:
-    ***http://<host>:<port>/<context>/<oauth\_authentication\_processing\_filter\_processes\_url>***
+    ***http://<host>:<port>/<context>/<oauth/_authentication/_processing/_filter/_processes/_url>***
 
 
 
