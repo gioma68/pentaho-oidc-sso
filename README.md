@@ -190,7 +190,7 @@ Also add the following bean into **pentaho-spring-beans.xml** to make the proper
 **3.** Configure *EnhancedHttpSessionReuseDetectionFilter* in **applicationContext-spring-security.xml** like the following:
 
 ```xml
-<bean id="enhancedHttpSessionReuseDetectionFilter" class="com.secureops.sso.EnhancedHttpSessionReuseDetectionFilter">
+<bean id="enhancedHttpSessionReuseDetectionFilter" class="com.arena.sso.EnhancedHttpSessionReuseDetectionFilter">
 	<property name="filterProcessesUrl" value="/j_spring_security_check" />
 	<property name="sessionReuseDetectedUrl" value="/Login?login_error=2" />
 	<property name ="ssoFilterProcessesUrls">
@@ -207,7 +207,7 @@ Also add the following bean into **pentaho-spring-beans.xml** to make the proper
 **4.** Configure *SsoUserDetailsService* as *oauthUserDetailsService* bean in **pentahoObjects.spring.xml** like the following (refered from *OAuthAuthenticationProvider* configured above):
 
 ```xml
-<bean id="oauthUserDetailsService" class="com.secureops.sso.SsoUserDetailsService">
+<bean id="oauthUserDetailsService" class="com.arena.sso.SsoUserDetailsService">
 	<constructor-arg>
 		<ref local="cachingUserDetailsService"/>	  
 	</constructor-arg>
