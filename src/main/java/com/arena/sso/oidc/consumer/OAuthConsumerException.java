@@ -1,7 +1,7 @@
 package com.arena.sso.oidc.consumer;
 
 
-import org.springframework.security.AuthenticationException;
+import org.springframework.security.core.AuthenticationException;
 
 public class OAuthConsumerException extends AuthenticationException {
 

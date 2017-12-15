@@ -1,20 +1,26 @@
 package com.arena.sso.oidc;
 
-import org.springframework.security.GrantedAuthority;
-import org.springframework.security.providers.AbstractAuthenticationToken;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.security.authentication.AbstractAuthenticationToken;
+import org.springframework.security.core.GrantedAuthority;
+
+import java.util.Collection;
 
 
 /**
  * OAuth authentication token.
  */
 public class OAuthAuthenticationToken extends AbstractAuthenticationToken {
+    
+    private static final Logger log = LoggerFactory.getLogger(OAuthAuthenticationToken.class);
     //~ Instance fields ================================================================================================
 
     private String identity;
 
     //~ Constructors ===================================================================================================
 
-    public OAuthAuthenticationToken(GrantedAuthority[] authorities, String identity) {
+    public OAuthAuthenticationToken(Collection<? extends GrantedAuthority> authorities, String identity) {
         super(authorities);
         this.identity = identity;
         setAuthenticated(true);
@@ -22,7 +28,7 @@ public class OAuthAuthenticationToken extends AbstractAuthenticationToken {
 
     @Override
     public Object getCredentials() {
-        return null;
+        return identity;
     }
 
     @Override
