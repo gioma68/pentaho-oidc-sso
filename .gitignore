@@ -17,6 +17,13 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
+# IntelijIDEA project files
+.idea
+*.iml
+
+# Maven build folder
+target
+
 # =========================
 # Operating System Files
 # =========================

@@ -1,13 +1,17 @@
 package com.arena.sso;
 
+import com.arena.sso.oidc.OAuthUserDetailsService;
 import org.pentaho.platform.api.engine.security.userroledao.IUserRoleDao;
+import org.pentaho.platform.api.engine.security.userroledao.NotFoundException;
 import org.pentaho.platform.engine.core.system.PentahoSessionHolder;
 import org.pentaho.platform.engine.core.system.PentahoSystem;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.dao.DataAccessException;
-import org.springframework.security.userdetails.UserDetails;
-import org.springframework.security.userdetails.UserDetailsService;
-import org.springframework.security.userdetails.UsernameNotFoundException;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 /**
  * Implements UserDetailsService for SSO authentication mechanism.
@@ -19,8 +23,9 @@ import org.springframework.security.userdetails.UsernameNotFoundException;
  * <code>createUser, setPassword, setUserDescription</code> methods invocation.
  * See "SSO authentication" integration guide for details.
  */
-public class SsoUserDetailsService implements UserDetailsService, InitializingBean {
+public class SsoUserDetailsService implements OAuthUserDetailsService, InitializingBean {
 
+    private static final Logger log = LoggerFactory.getLogger(SsoUserDetailsService.class);
     //~ Instance fields ================================================================================================
 
     private UserDetailsService pentahoUserDetailsService;
@@ -38,7 +43,7 @@ public class SsoUserDetailsService implements UserDetailsService, InitializingBe
     //~ Methods ========================================================================================================
 
     @Override
-    public void afterPropertiesSet() throws Exception {
+    public void afterPropertiesSet() {
         if(roles == null) {
             roles = new String[] {};
         }
@@ -51,22 +56,38 @@ public class SsoUserDetailsService implements UserDetailsService, InitializingBe
      * Should be used only for SSO authentication.
      */
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException, DataAccessException {
-        UserDetails user = null;
+    public UserDetails loadUserByUsernameWithRoles(String username, String[] roles) throws UsernameNotFoundException, DataAccessException {
+        UserDetails user;
+        
 
         try {
+            for (String role: roles)
+            {
+                if (userRoleDao.getRole(null, role) == null)
+                {
+                    userRoleDao.createRole(null, role, "", new String[]{});
+                }
+            }
+            userRoleDao.setUserRoles(null, username, roles);
             user = pentahoUserDetailsService.loadUserByUsername(username);
-        } catch (UsernameNotFoundException e) {
+        } catch (UsernameNotFoundException|NotFoundException e) {
 
             if ( userRoleDao == null ) {
                 userRoleDao = PentahoSystem.get(IUserRoleDao.class, "userRoleDaoProxy", PentahoSessionHolder.getSession());
             }
-
-            userRoleDao.createUser(null, username, PasswordGenerator.generate(), "", roles );
+            
+            String password = PasswordGenerator.generate();
+            userRoleDao.createUser(null, username, password, "", roles );
             user = pentahoUserDetailsService.loadUserByUsername(username);
         }
 
         return user;
+    }
+    
+    @Override
+    public UserDetails loadUserByUsername(String user) throws UsernameNotFoundException
+    {
+        return loadUserByUsernameWithRoles(user, this.roles);
     }
 
     public void setUserRoleDao(IUserRoleDao userRoleDao) {

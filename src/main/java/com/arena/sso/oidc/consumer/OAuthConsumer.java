@@ -11,7 +11,7 @@ public interface OAuthConsumer {
      * @return return url for redirection to identity provider.
      * @throws OAuthConsumerException in case of any problem occurs during processing
      */
-    public String handleLoginRequest(HttpServletRequest request) throws OAuthConsumerException;
+    String handleLoginRequest(HttpServletRequest request) throws OAuthConsumerException;
 
 
     /**
@@ -20,6 +20,6 @@ public interface OAuthConsumer {
      * @return  user identity.
      * @throws OAuthConsumerException in case of any problem occurs during processing
      */
-    public String handleAuthenticationRequest(HttpServletRequest request) throws OAuthConsumerException;
+    UserData handleAuthenticationRequest(HttpServletRequest request) throws OAuthConsumerException;
 	
 }
